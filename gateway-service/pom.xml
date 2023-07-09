@@ -39,40 +39,45 @@
         </dependency>
 
         <!--权限校验：第一种集成方式-start-->
-        <!--spring boot security 权限-->
+        <!--&lt;!&ndash;spring boot security 权限&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--oauth2-->
+        &lt;!&ndash;oauth2&ndash;&gt;
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
             <version>2.1.4.RELEASE</version>
         </dependency>
 
-        <!--权限验证资源-->
+        &lt;!&ndash;权限验证资源&ndash;&gt;
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-resource-server</artifactId>
         </dependency>
 
-        <!--mysql驱动-->
+        &lt;!&ndash;mysql驱动&ndash;&gt;
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
 
-        <!--spring - jdbc-->
+        &lt;!&ndash;spring - jdbc&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
+        </dependency>-->
         <!--权限校验：第一种集成方式-end-->
 
         <!--权限校验：第二种集成方式-start-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <!--权限校验：第二种集成方式-end-->
 
         <dependency>
