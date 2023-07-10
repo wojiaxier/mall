@@ -1,6 +1,7 @@
 package com.hbwxz.gateway.filter;
 
 import com.hbwxz.gateway.feignclient.Oauth2ServiceClient;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
@@ -21,6 +23,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     private Oauth2ServiceClient oauth2ServiceClient;
 
 
+    @SneakyThrows
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -38,7 +41,12 @@ public class AuthFilter implements GlobalFilter, Ordered {
          */
         String token = request.getHeaders().getFirst("Authorization");
         //feign调用oauth2-service模块的checkToken方法，校验当前获取的token是否有效
-        Map<String, Object> result = oauth2ServiceClient.checkToken(token);
+//        Map<String, Object> result = oauth2ServiceClient.checkToken(token);
+        //异步形式调用
+        CompletableFuture<Map> future = CompletableFuture.supplyAsync(() -> {
+            return oauth2ServiceClient.checkToken(token);
+        });
+        Map result = future.get();
         Boolean active = (Boolean) result.get("active");
         //如果active为false，说明当前token无效，返回401状态码
         if (!active) {
