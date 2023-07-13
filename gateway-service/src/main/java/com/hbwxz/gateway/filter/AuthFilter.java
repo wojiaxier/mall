@@ -34,7 +34,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
          */
         if (path.contains("/oauth")
                 || path.contains("/user/register")) {
-            chain.filter(exchange);
+            return chain.filter(exchange);
         }
         /**
          * 2.开始校验请求中的token
